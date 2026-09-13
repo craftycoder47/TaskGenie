@@ -29,8 +29,10 @@ ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY", "PUT_YOUR_ANTHROPIC_API_
 ADMIN_CHAT_ID = os.environ.get("ADMIN_CHAT_ID", "")  # your own Telegram chat ID, set on Railway
 PAYMENT_LINK = os.environ.get("PAYMENT_LINK", "https://PUT_YOUR_STRIPE_OR_PAYPAL_LINK_HERE")
 MODEL = "claude-sonnet-4-6"
-WATCH_FILE = "watched_items.json"
-USAGE_FILE = "usage.json"
+DATA_DIR = __import__("os").environ.get("DATA_DIR", ".")
+__import__("os").makedirs(DATA_DIR, exist_ok=True)
+WATCH_FILE = __import__("os").path.join(DATA_DIR, "watched_items.json")
+USAGE_FILE = __import__("os").path.join(DATA_DIR, "usage.json")
 CHECK_INTERVAL_SECONDS = 3600  # check prices every hour
 FREE_LIMIT = 3  # free uses per person for paid modules (content/resume/newsletter)
 
