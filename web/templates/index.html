@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>TaskGenie — Your 7-Day Customer Growth Pack</title>
+  <meta name="description" content="TaskGenie helps small UK businesses turn their business details into practical customer-growth content and actions.">
+  <style>
+    :root { font-family: Inter, system-ui, sans-serif; color: #172033; background: #f6f8fb; }
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    .wrap { max-width: 980px; margin: auto; padding: 28px 18px 60px; }
+    nav { font-weight: 800; font-size: 1.2rem; margin-bottom: 55px; }
+    .hero { max-width: 760px; margin-bottom: 36px; }
+    h1 { font-size: clamp(2.3rem, 7vw, 4.6rem); line-height: .98; margin: 0 0 20px; letter-spacing: -0.04em; }
+    .lead { font-size: 1.2rem; line-height: 1.6; color: #566176; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin: 30px 0 45px; }
+    .card, form { background: white; border: 1px solid #e2e7ef; border-radius: 18px; padding: 22px; box-shadow: 0 8px 30px rgba(23,32,51,.05); }
+    .card h2 { margin-top: 0; }
+    ul { padding-left: 20px; line-height: 1.8; color: #566176; }
+    form { max-width: 720px; }
+    label { display: block; font-weight: 700; margin: 15px 0 7px; }
+    input, textarea { width: 100%; padding: 13px; border: 1px solid #ccd3df; border-radius: 10px; font: inherit; }
+    textarea { min-height: 90px; resize: vertical; }
+    button { margin-top: 20px; width: 100%; padding: 14px; border: 0; border-radius: 10px; font: inherit; font-weight: 800; cursor: pointer; background: #172033; color: white; }
+    .consent { font-size: .9rem; color: #667085; }
+    .consent input { width: auto; margin-right: 7px; }
+    #status { margin-top: 15px; font-weight: 700; }
+    @media (max-width: 700px) { .grid { grid-template-columns: 1fr; } nav { margin-bottom: 35px; } }
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <nav>⚡ TaskGenie</nav>
+  <section class="hero">
+    <h1>Turn your business into a 7-day customer-growth plan.</h1>
+    <p class="lead">Tell us what your small business does, who you want to reach, and what you want to achieve. TaskGenie turns that into practical, ready-to-use marketing material and actions.</p>
+  </section>
+
+  <div class="grid">
+    <div class="card">
+      <h2>What you can get</h2>
+      <ul>
+        <li>5 social posts</li>
+        <li>2 Google Business updates</li>
+        <li>A customer promotion</li>
+        <li>Review-request messages</li>
+        <li>Homepage copy and FAQs</li>
+        <li>A 7-day action checklist</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h2>Built for small businesses</h2>
+      <p class="lead">Cleaners, tradespeople, barbers, beauty businesses, restaurants, mechanics and other local businesses can start with their real business information — without needing marketing expertise.</p>
+    </div>
+  </div>
+
+  <h2>Request your Growth Pack</h2>
+  <p class="lead">Leave your details below. This is an early TaskGenie product test, so we'll use your enquiry to improve the service.</p>
+  <form id="enquiry-form">
+    <label for="name">Your name *</label>
+    <input id="name" name="name" required>
+    <label for="email">Email *</label>
+    <input id="email" name="email" type="email" required>
+    <label for="business_type">What type of business do you run? *</label>
+    <input id="business_type" name="business_type" placeholder="e.g. mobile car valeting" required>
+    <label for="location">Location / service area *</label>
+    <input id="location" name="location" placeholder="e.g. Luton and nearby areas" required>
+    <label for="services">Main services or products *</label>
+    <textarea id="services" name="services" required></textarea>
+    <label for="goal">What would you like to achieve in the next 7 days? *</label>
+    <textarea id="goal" name="goal" placeholder="e.g. get more local enquiries" required></textarea>
+    <label class="consent"><input type="checkbox" name="consent" value="1" required> I agree that TaskGenie can contact me about this enquiry.</label>
+    <button type="submit">Request my Growth Pack</button>
+    <div id="status" role="status"></div>
+  </form>
+</div>
+<script>
+const form = document.getElementById('enquiry-form');
+const status = document.getElementById('status');
+form.addEventListener('submit', async (event) => {
+  event.preventDefault();
+  status.textContent = 'Sending…';
+  try {
+    const response = await fetch('/api/enquiries', { method: 'POST', body: new FormData(form) });
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.error || 'Something went wrong.');
+    status.textContent = data.message;
+    form.reset();
+  } catch (error) {
+    status.textContent = error.message;
+  }
+});
+</script>
+</body>
+</html>
