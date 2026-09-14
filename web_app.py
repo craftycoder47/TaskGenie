@@ -89,7 +89,7 @@ def create_enquiry():
         return jsonify({"ok": False, "error": "Please keep the business details concise."}), 400
 
     email = values["email"]
-    if not re.fullmatch(r"[^@\\s]+@[^@\\s]+\\.[^@\\s]+", email):
+    if not re.fullmatch(r"[^@\s]+@[^@\s]+\.[^@\s]+", email):
         return jsonify({"ok": False, "error": "Please enter a valid email address."}), 400
 
     if str(data.get("consent", "")).lower() not in {"1", "true", "on", "yes"}:
