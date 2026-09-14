@@ -26,6 +26,7 @@
     .consent { font-size: .9rem; color: #667085; }
     .consent input { width: auto; margin-right: 7px; }
     #status { margin-top: 15px; font-weight: 700; }
+    .privacy { font-size: .85rem; color: #667085; margin-top: 12px; }
     @media (max-width: 700px) { .grid { grid-template-columns: 1fr; } nav { margin-bottom: 35px; } }
   </style>
 </head>
@@ -71,6 +72,7 @@
     <label for="goal">What would you like to achieve in the next 7 days? *</label>
     <textarea id="goal" name="goal" placeholder="e.g. get more local enquiries" required></textarea>
     <label class="consent"><input type="checkbox" name="consent" value="1" required> I agree that TaskGenie can contact me about this enquiry.</label>
+    <div class="privacy">See our <a href="/privacy">privacy notice</a> for how enquiry information is handled.</div>
     <button type="submit">Request my Growth Pack</button>
     <div id="status" role="status"></div>
   </form>
